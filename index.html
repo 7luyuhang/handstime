@@ -14,11 +14,7 @@
         *{
             box-sizing: border-box;
         }
-        
-        ::-webkit-scrollbar {
-            display: none
-        }
-        
+
         @font-face {
         font-family: 'SF Mono';
         src: url("styles/font/SF-Mono-Regular.otf")
@@ -36,20 +32,12 @@
             text-transform: uppercase;
         }
 
-        .title {
-            text-align: center;
-            width: 100%;
+        .column {
+            float: left;
             margin: 2rem;
-            color: black;
-            font-size: 1rem;
-        }
+            text-align: center;
+            width: 50%;
 
-        .subtitle {
-            text-align: center;
-            width: 100%;
-            margin: 2rem;
-            color: grey;
-            font-size: 1rem;
         }
 
         a {
@@ -60,7 +48,7 @@
 </head>
 
 <body>
-    <div class="title">
+    <div class="column">
         <p>"We shape abstract time with our figurative hands, then we perceive time."</p>
         <p>
             <a href="mailto:handstime.app@gmail.com">Email</a>
@@ -69,7 +57,7 @@
         <p>Copyright &copy; 2023 Hands Time. All rights reserved.</p>
     </div>
 
-    <div class="subtitle">
+    <div class="column">
         <p>
             <a href="https://twitter.com/handstime_app" target="_blank">Hands Time</a> is building widgets for iOS platform.
         </p>
