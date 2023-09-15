@@ -11,7 +11,7 @@
     <meta property="og:image" content="https://github.com/7luyuhang/handstime/raw/d3f2460381de71f80f952e1c2142e4f8d5ec45a9/styles/image/OG_Image.png">
     <meta property="og:url" content="https://handstime.app">
 
-    <meta name=“hands-time” content="app-id=6462440720">
+    <meta name=“hands-time” content="app-id=6462440720", app-argument="https://apps.apple.com/app/id6462440720">
 
     <link rel="icon" href="styles/image/favicon.png" type="png">
     <link rel="apple-touch-icon" href="styles/image/apple_touch_icon.png">
@@ -30,6 +30,15 @@
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
       </script>
       <script defer src="/_vercel/insights/script.js"></script>
+
+      <script>
+        (function() {
+            var banner = document.createElement('meta');
+            banner.name = 'apple-itunes-app';
+            banner.content = 'app-id=6462440720, app-argument=https://apps.apple.com/app/id6462440720';
+            document.querySelector('head').appendChild(banner);
+        })();
+        </script>
 
     <style>
         *{
