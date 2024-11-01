@@ -75,12 +75,11 @@
         }
 
         a:hover {
-            color: white;
-            background-color: black;
+            color: #808080;
         }
 
         body {
-            font-family: 'Berkeley Mono';
+            font-family: 'Berkeley Mono', monospace;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -137,6 +136,16 @@
             gap: 1em;
             margin-top: 1em;
         }
+
+        .vertical-line {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+        }
+
+        .footer {
+            color: #808080;
+        }
     </style>
 </head>
 
@@ -167,13 +176,15 @@
         </div>
 
         <div class="container">
-            <a href="mailto:handstime.app@gmail.com" target="_blank">Email</a>
-            <a href="https://www.instagram.com/handstime.app/" target="_blank">Instagram</a>
-            <a href="https://x.com/handstime_app" target="_blank">X</a>
+            <div class="vertical-line">
+                <a href="mailto:handstime.app@gmail.com" target="_blank">Email</a>
+                <a href="https://www.instagram.com/handstime.app/" target="_blank">Instagram</a>
+                <a href="https://x.com/handstime_app" target="_blank">X</a>
+            </div>
         </div>
 
         <div class="container">
-            <p>Copyright © 2024 Negative Time Limited. All rights reserved.</p>
+            <p class="footer">Copyright © 2024 Negative Time Limited. All rights reserved.</p>
 
             <div class="horizontal-line">
                 <a href="https://www.handstime.app/terms">Terms </a>
