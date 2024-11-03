@@ -212,10 +212,15 @@
         let xOffset = 0;
         let yOffset = 0;
 
-        // Touch Event
-        circle.addEventListener('touchstart', dragStart, false);
-        document.addEventListener('touchend', dragEnd, false);
-        document.addEventListener('touchmove', drag, false);
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        if (!isMobile()) {
+            circle.addEventListener('touchstart', dragStart, false);
+            document.addEventListener('touchend', dragEnd, false);
+            document.addEventListener('touchmove', drag, false);
+        }
 
         // Cursor Event
         circle.addEventListener('mousedown', dragStart, false);
@@ -223,6 +228,8 @@
         document.addEventListener('mousemove', drag, false);
 
         function dragStart(e) {
+            if (isMobile()) return;
+
             if (e.type === 'touchstart') {
                 initialX = e.touches[0].clientX - xOffset;
                 initialY = e.touches[0].clientY - yOffset;
@@ -238,19 +245,22 @@
         }
 
         function dragEnd(e) {
+            if (isMobile()) return;
+
             initialX = currentX;
             initialY = currentY;
 
             isDragging = false;
             circle.classList.remove('dragging');
 
-            // Back to Original
             circle.style.transform = `translate(0px, 0px)`;
             xOffset = 0;
             yOffset = 0;
         }
 
         function drag(e) {
+            if (isMobile()) return;
+
             if (isDragging) {
                 e.preventDefault();
 
