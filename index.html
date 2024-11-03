@@ -27,7 +27,7 @@
         content="https://github.com/7luyuhang/handstime/raw/d3f2460381de71f80f952e1c2142e4f8d5ec45a9/styles/image/OG_Image.png">
     <meta property="og:url" content="https://handstime.app">
 
-    <!-- Apple Store-->
+    <!-- Apple Store -->
     <meta name=“hands-time” content="app-id=6462440720" , app-argument="https://apps.apple.com/app/id6462440720">
 
     <!-- Google tag (gtag.js) -->
@@ -40,6 +40,7 @@
         gtag('config', 'G-SRN0GMLKDY');
     </script>
 
+    <!-- Vercel -->
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
@@ -118,13 +119,26 @@
             background-color: #f7f7f7;
             border-radius: 24px;
             padding: 0.4em;
+            position: relative;
+
         }
 
         .circle {
-            width: 100%;
-            height: 100%;
+            width: calc(100% - 0.8em);
+            height: calc(100% - 0.8em);
             background-color: white;
             border-radius: 100%;
+            position: absolute;
+            cursor: grab;
+            touch-action: none;
+            transition: transform 0.4s cubic-bezier(0.6, 0, 0, 1);
+            inset: 0;
+            margin: auto;
+        }
+
+        .circle.dragging {
+            transition: none;
+            cursor: grabbing;
         }
 
         .horizontal-line {
@@ -146,7 +160,6 @@
     </style>
 </head>
 
-
 <body>
     <div class="container-group">
 
@@ -157,7 +170,6 @@
                     fill="black" />
             </svg>
         </div>
-
 
         <div class="container">
             <p class="description">“Shape time with your hands.” Hands Time is building time widgets for iPhone.</p>
@@ -188,9 +200,75 @@
                 <a href="https://www.handstime.app/privacy">Privacy</a>
             </div>
         </div>
-
     </div>
 
+    <script>
+        const circle = document.querySelector('.circle');
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+
+        // Touch Event
+        circle.addEventListener('touchstart', dragStart, false);
+        document.addEventListener('touchend', dragEnd, false);
+        document.addEventListener('touchmove', drag, false);
+
+        // Cursor Event
+        circle.addEventListener('mousedown', dragStart, false);
+        document.addEventListener('mouseup', dragEnd, false);
+        document.addEventListener('mousemove', drag, false);
+
+        function dragStart(e) {
+            if (e.type === 'touchstart') {
+                initialX = e.touches[0].clientX - xOffset;
+                initialY = e.touches[0].clientY - yOffset;
+            } else {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+            }
+
+            if (e.target === circle) {
+                isDragging = true;
+                circle.classList.add('dragging');
+            }
+        }
+
+        function dragEnd(e) {
+            initialX = currentX;
+            initialY = currentY;
+
+            isDragging = false;
+            circle.classList.remove('dragging');
+
+            // Back to Original
+            circle.style.transform = `translate(0px, 0px)`;
+            xOffset = 0;
+            yOffset = 0;
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+
+                if (e.type === 'touchmove') {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+
+                xOffset = currentX;
+                yOffset = currentY;
+
+                circle.style.transform = `translate(${currentX}px, ${currentY}px)`;
+            }
+        }
+    </script>
 
 </body>
 
