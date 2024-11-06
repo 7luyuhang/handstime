@@ -125,8 +125,8 @@
         }
 
         .circle {
-            width: calc(100% - 0.8em);
-            height: calc(100% - 0.8em);
+            width: calc(100% - 1em);
+            height: calc(100% - 1em);
             background-color: white;
             border-radius: 100%;
             position: absolute;
@@ -142,6 +142,8 @@
             cursor: grabbing;
         }
 
+
+        /*Layout*/
         .horizontal-line {
             display: flex;
             gap: 1em;
@@ -158,6 +160,42 @@
         .footer {
             color: #808080;
         }
+
+        /*Newsletter Style*/
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            width: 100%;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            font-family: 'Berkeley Mono', monospace;
+            font-size: 1em;
+            border: 1px solid white;
+            border-radius: 48px;
+            background-color: white;
+            height: 48px;
+            padding-inline: 1em;
+            outline: none;
+        }
+
+        .message {
+            font-size: 1em;
+            color: #808080;
+            display: none;
+        }
+
+        .message.success {
+            color: #808080;
+            display: block;
+        }
+
+        .message.error {
+            color: #808080;
+            display: block;
+        }
     </style>
 </head>
 
@@ -173,7 +211,9 @@
         </div>
 
         <div class="container">
-            <p class="description">“Shape time with your hands.” Hands Time is building time widgets for iPhone.</p>
+            <p>“Shape time with your hands.”</p>
+            <br>
+            <p>Hands Time is building time widgets for iPhone.</p>
 
             <div class="horizontal-line">
                 <a href="https://apps.apple.com/us/app/hands-time-minimalist-widget/id6462440720"
@@ -193,6 +233,15 @@
             </div>
         </div>
 
+        <!-- Form -->
+        <div class="container">
+            <form class="newsletter-form" id="newsletterForm">
+                <p>Sign up for newsletter.</p>
+                <input type="email" id="email" placeholder="Email Address" required>
+                <div id="message" class="message"></div>
+            </form>
+        </div>
+
         <div class="container">
             <p class="footer">Copyright © 2024 Negative Time Limited. All rights reserved.</p>
 
@@ -203,6 +252,7 @@
         </div>
     </div>
 
+    <!-- Grab Circle -->
     <script>
         const circle = document.querySelector('.circle');
         let isDragging = false;
@@ -279,6 +329,52 @@
                 circle.style.transform = `translate(${currentX}px, ${currentY}px)`;
             }
         }
+    </script>
+
+    <!-- Newsletter -->
+    <script>
+        const form = document.getElementById('newsletterForm');
+        const messageDiv = document.getElementById('message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            messageDiv.className = 'message';
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                messageDiv.textContent = 'Invalid Format.';
+                messageDiv.classList.add('error');
+                return;
+            }
+
+            try {
+                const formBody = `email=${encodeURIComponent(email)}`;
+
+                // Send to Loops.so API
+                const response = await fetch("https://app.loops.so/api/newsletter-form/cm321lydv012ti0rop4mwqgh2", {
+                    method: "POST",
+                    body: formBody,
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network Error');
+                }
+
+                messageDiv.textContent = 'Keep in touch :)';
+                messageDiv.classList.add('success');
+                form.reset();
+            } catch (error) {
+                messageDiv.textContent = 'Error.';
+                messageDiv.classList.add('error');
+                console.error('Form Error.', error);
+            }
+        });
     </script>
 
 </body>
