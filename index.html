@@ -97,12 +97,7 @@
             border-radius: 20px;
         }
 
-        .container-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2em;
-        }
-
+        /*Container*/
         .container {
             width: 360px;
             height: 360px;
@@ -114,6 +109,13 @@
             align-items: flex-start;
         }
 
+        .container-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2em;
+        }
+
+        /*Circle Related*/
         .container-circle {
             width: 360px;
             height: 360px;
@@ -121,7 +123,6 @@
             border-radius: 24px;
             padding: 0.4em;
             position: relative;
-
         }
 
         .circle {
@@ -135,6 +136,7 @@
             transition: transform 0.4s cubic-bezier(0.6, 0, 0, 1);
             inset: 0;
             margin: auto;
+            z-index: 1;
         }
 
         .circle.dragging {
@@ -142,6 +144,14 @@
             cursor: grabbing;
         }
 
+        .circle-backgroundimage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 4em);
+            z-index: 0;
+        }
 
         /*Layout*/
         .horizontal-line {
@@ -211,7 +221,7 @@
         </div>
 
         <div class="container">
-            <p>“Shape time with your hands.”</p>
+            <p>"Shape time with your hands."</p>
             <br>
             <p>Hands Time is building time widgets for iPhone.</p>
 
@@ -221,10 +231,13 @@
             </div>
         </div>
 
+        <!-- Circle -->
         <div class="container-circle">
             <div class="circle"></div>
+            <img class="circle-backgroundimage" src="styles/image/pioneer_plaque.png">
         </div>
 
+        <!-- Media -->
         <div class="container">
             <div class="vertical-line">
                 <a href="mailto:handstime.app@gmail.com" target="_blank">Email</a>
